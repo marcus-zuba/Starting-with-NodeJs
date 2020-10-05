@@ -50,6 +50,34 @@ module.exports = {
       }catch(error){
          next(error)
       }
-   }
+   },
+   async update(req, res, next){
+      try{
+         const { id } = req.params
+         const { title, user_id } = req.body
 
+         await knex('projects')
+         .update({title, user_id})
+         .where({id})
+
+         return res.send()
+
+      }catch(error){
+         next(error)
+      }
+   },
+   async delete(req, res, next){
+      try{
+         const {id} = req.params
+
+         await knex('projects')
+         .where({id})
+         .del()
+
+         return res.send()
+         
+      }catch(error){
+         next(error)
+      }
+   },
 }
